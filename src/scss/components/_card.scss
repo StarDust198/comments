@@ -1,0 +1,10 @@
+@import '../base/variables';
+
+.card {
+  margin-top: 32px;
+  border-radius: 5px;
+  background-color: $white;
+  background-color: $pink;
+  box-shadow: 0 6px 6px rgb(0 0 0 / 10%);
+  padding: 24px;
+}

@@ -1,0 +1,47 @@
+@import '../base/variables';
+
+.post {
+  display: grid;
+  grid-template-columns: [start] 32px 1fr auto [end];
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  line-height: 24px;
+
+  &-list {
+    padding-bottom: 48px;
+  }
+
+  &-actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  &-name {
+    font-weight: bold;
+  }
+
+  &-text {
+    grid-column: start / end;
+  }
+
+  &-date {
+    grid-column: start / end;
+    font-size: 12px;
+    font-style: italic;
+    text-align: end;
+  }
+
+  &-btn {
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: 0.3s transform ease-in-out;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}

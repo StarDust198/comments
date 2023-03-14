@@ -1,0 +1,17 @@
+@import 'base/variables';
+@import 'base/reset';
+@import 'base/utility';
+
+@import 'components/misc';
+@import 'components/card';
+@import 'components/button';
+
+@import 'blocks/form';
+@import 'blocks/posts';
+
+/* Base styles */
+html body {
+  color: $black;
+  background: $bgColor;
+  font-family: 'Roboto', sans-serif;
+}
