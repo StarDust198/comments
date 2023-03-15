@@ -22,8 +22,7 @@ export function processField(field, errorState) {
 
       if (dateArr.length !== 3) {
         errorState.errors++;
-        errorState[field.name] =
-          'Введите дату в формате дд/мм/гг или дд.мм.гггг';
+        errorState[field.name] = 'Формат: дд/мм/гг или дд.мм.гггг';
         return;
       }
 
@@ -39,12 +38,16 @@ export function processField(field, errorState) {
         return;
       }
 
-      if (
-        (dateArr[2].length !== 2 && dateArr[2].length !== 4) ||
-        +dateArr[2] % 2000 > newDate.getFullYear() % 2000
-      ) {
+      if (dateArr[2].length !== 2 && dateArr[2].length !== 4) {
         errorState.errors++;
-        errorState[field.name] = 'От 2000го и выше';
+        errorState[field.name] = 'Неправильный формат года';
+        return;
+      }
+
+      if (+dateArr[2] % 2000 > newDate.getFullYear() % 2000) {
+        errorState.errors++;
+        errorState[field.name] = 'От 2000го до текущего';
+        return;
       }
 
       const year = +dateArr[2] >= 2000 ? +dateArr[2] : +dateArr[2] + 2000;
