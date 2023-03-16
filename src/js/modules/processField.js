@@ -57,6 +57,12 @@ export function processField(field, errorState) {
       const minutes = newDate.getMinutes();
       const resultDate = new Date(year, month, date, hours, minutes);
 
+      if (resultDate.getTime() - Date.now() > 0) {
+        errorState.errors++;
+        errorState[field.name] = 'Эта дата в будущем!';
+        return;
+      }
+
       if (resultDate.getMonth() !== month) {
         errorState.errors++;
         errorState[field.name] = 'Такого числа не было в этом месяце';
