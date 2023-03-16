@@ -27,7 +27,7 @@ export const Post = ({ text, name, date }) => {
 		<hr class="hr" />
 
 		<p class="post-text">
-			${text}
+			${text.split('\n').join('<br/>')}
 		</p>
 		<div class="post-date">${date}</div>
 	`;

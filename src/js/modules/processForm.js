@@ -1,6 +1,6 @@
 import { processField } from './processField.js';
 
-export const processForm = (form, postList) => {
+export const processForm = (form) => {
   const errorState = {
     errors: 0,
     name: '',
@@ -11,8 +11,26 @@ export const processForm = (form, postList) => {
   form.onsubmit = function (e) {
     e.preventDefault();
 
+    submitForm();
+  };
+
+  for (let field of form.elements) {
+    if (field.name) {
+      field.oninput = () => clearError(field.name);
+    }
+  }
+
+  form.elements['text'].onkeydown = (e) => {
+    if (e.key !== 'Enter' || e.shiftKey) return;
+    e.preventDefault();
+
+    submitForm();
+  };
+
+  function submitForm() {
     let postData = {};
-    for (let field of this) {
+
+    for (let field of form.elements) {
       if (field.name) {
         postData[field.name] = processField(field, errorState);
         if (errorState[field.name]) showError(field.name);
@@ -20,22 +38,16 @@ export const processForm = (form, postList) => {
     }
 
     if (errorState.errors === 0) {
-      this.dispatchEvent(
+      form.dispatchEvent(
         new CustomEvent('addPost', {
           detail: postData,
         })
       );
-      this.reset();
+      form.reset();
       return;
     }
 
     errorState.errors = 0;
-  };
-
-  for (let field of form.elements) {
-    if (field.name) {
-      field.oninput = () => clearError(field.name);
-    }
   }
 
   function showError(fieldName) {
