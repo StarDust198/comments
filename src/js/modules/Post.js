@@ -2,7 +2,7 @@ import userImage from '../../assets/user.svg';
 import heartImage from '../../assets/heart.svg';
 import trashImage from '../../assets/trash.svg';
 
-export function addNewPost({ text, name, date }, container) {
+export const Post = ({ text, name, date }) => {
   const newPost = document.createElement('li');
   newPost.classList.add(
     'post',
@@ -32,5 +32,5 @@ export function addNewPost({ text, name, date }, container) {
 		<div class="post-date">${date}</div>
 	`;
 
-  container.prepend(newPost);
-}
+  return newPost;
+};

@@ -1,5 +1,5 @@
 export const postListClicks = (postList) => {
-  postList.addEventListener('click', (e) => {
+  postList.onclick = (e) => {
     const tgt = e.target.closest('.post-btn');
     if (!tgt) return;
 
@@ -19,5 +19,5 @@ export const postListClicks = (postList) => {
       default:
         throw new Error('Неизвестное действие');
     }
-  });
+  };
 };

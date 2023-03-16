@@ -1,4 +1,3 @@
-import { addNewPost } from './addNewPost.js';
 import { processField } from './processField.js';
 
 export const processForm = (form, postList) => {
@@ -9,7 +8,7 @@ export const processForm = (form, postList) => {
     date: '',
   };
 
-  form.addEventListener('submit', function (e) {
+  form.onsubmit = function (e) {
     e.preventDefault();
 
     let postData = {};
@@ -21,13 +20,17 @@ export const processForm = (form, postList) => {
     }
 
     if (errorState.errors === 0) {
-      addNewPost(postData, postList);
+      this.dispatchEvent(
+        new CustomEvent('addPost', {
+          detail: postData,
+        })
+      );
       this.reset();
       return;
     }
 
     errorState.errors = 0;
-  });
+  };
 
   for (let field of form.elements) {
     if (field.name) {

@@ -3,14 +3,18 @@ import { formatDate } from './formatDate.js';
 export function processField(field, errorState) {
   switch (field.name) {
     case 'name':
-      let name = field.value.trim();
+    case 'text':
+      let str = field.value.trim();
+      let minLength = field.name === 'name' ? 3 : 10;
 
-      if (name.length < 3) {
+      if (str.length < minLength) {
         errorState.errors++;
         errorState[field.name] =
-          name.length === 0 ? 'Обязательное поле' : 'Не менее 3х символов';
+          str.length === 0
+            ? 'Обязательное поле'
+            : `Не менее ${minLength === 3 ? '3х' : '10ти'} символов`;
       } else {
-        return name;
+        return str;
       }
       break;
 
@@ -70,18 +74,6 @@ export function processField(field, errorState) {
       }
 
       return formatDate(resultDate);
-
-    case 'text':
-      let text = field.value.trim();
-
-      if (text.length < 5) {
-        errorState.errors++;
-        errorState[field.name] =
-          text.length === 0 ? 'Обязательное поле' : 'Не менее 5ти символов';
-        return;
-      }
-
-      return text;
 
     default:
       throw new Error('Unknown input field');
